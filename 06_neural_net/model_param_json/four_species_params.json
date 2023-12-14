@@ -1,0 +1,73 @@
+{
+    "train": {
+        "batch_size": 4,
+        "loss": "poisson_dotcov",
+	"cov_weight": 2,
+        "optimizer": "adam",
+        "learning_rate": 0.01,
+        "momentum": 0.99,
+        "train_epochs": 10,
+        "patience": 8,
+        "clip_norm": 2
+    },
+    "model": {
+        "seq_length": 131072,
+
+        "augment_rc": true,
+        "augment_shift": 3,
+
+        "activation": "gelu",
+        "norm_type": "batch",
+        "bn_momentum": 0.9,
+
+        "trunk": [
+            {
+                "name": "conv_block",
+                "filters": 288,
+                "kernel_size": 15,
+                "pool_size": 2
+            },
+            {
+                "name": "res_tower",
+                "filters_init": 339,
+		"filters_end": 339,
+                "filters_mult": 1.1776,
+                "kernel_size": 5,
+                "pool_size": 2,
+                "repeat": 6
+            },
+            {
+                "name": "dilated_residual",
+                "filters": 384,
+                "rate_mult": 2,
+                "repeat": 6,
+                "dropout": 0.25
+            },
+            {
+                "name": "conv_block",
+                "filters": 768,
+                "dropout": 0.05
+            }
+        ],
+        "head_mouse": {
+            "name": "final",
+            "units": 32,
+            "activation": "softplus"
+        },
+	"head_human":{
+	    "name" : "final",
+	    "units" : 32,
+	    "activation" : "softplus"
+    	},
+	"head_marmoset":{
+	    "name": "final",
+	    "units" : 32,
+	    "activation" : "softplus"
+	},
+	"head_macaque":{
+	    "name": "final",
+	    "units" : 32,
+	    "activation" : "softplus"
+	}
+    }
+}
