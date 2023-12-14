@@ -8,16 +8,17 @@ for type in ${type[@]}
 
 do
 
-bedtools intersect -u -a ../liftover/rhemac10/celltype/${type}_with_rhemac10_element_rhemac10.bed -b ../../macaque/${type}_from_union_boundary.bed > rhemac10_overlap/${type}_human_boundary_overlap_rhemac10_${type}_boundary_rhemac10.bed
+pairToPair -type both -a ../liftover/rhemac10/celltype/${type}_with_rhemac10_element_rhemac10.bedpe -b ../../macaque/${type}_from_union_loop_summit.bedpe | cut -f1-7 > rhemac10_overlap/${type}_human_loop_overlap_rhemac10_${type}_loop_rhemac10.bedpe
 
-bedtools intersect -u -a ../liftover/caljac4/celltype/${type}_with_caljac4_element_caljac4.bed -b ../../marmoset/${type}_from_union_boundary.bed > caljac4_overlap/${type}_human_boundary_overlap_caljac4_${type}_boundary_caljac4.bed
+pairToPair -type both -a ../liftover/caljac4/celltype/${type}_with_caljac4_element_caljac4.bedpe -b ../../marmoset/${type}.loop_summit.bedpe | cut -f1-7 > caljac4_overlap/${type}_human_loop_overlap_caljac4_${type}_loop_caljac4.bedpe
 
-bedtools intersect -u -a ../liftover/mm10/celltype/${type}_with_mm10_element_mm10.bed -b ../../mouse/${type}_from_union_boundary.bed  > mm10_overlap/${type}_human_boundary_overlap_mm10_${type}_boundary_mm10.bed
+pairToPair -type both -a ../liftover/mm10/celltype/${type}_with_mm10_element_mm10.bedpe -b ../../mouse/${type}.loop_summit.bedpe | cut -f1-7 > mm10_overlap/${type}_human_loop_overlap_mm10_${type}_loop_mm10.bedpe
 
-bedtools intersect -u -a ../liftover/rhemac10/celltype/${type}_with_rhemac10_element_rhemac10.bed -b ../../macaque/${type}_from_union_boundary.bed | cut -f4 | grep -Fw -f - ../liftover/human_union_boundary_hg38_with_rhemac10_element.bed > rhemac10_overlap/${type}_human_boundary_overlap_rhemac10_${type}_boundary_hg38.bed
+pairToPair -type both -a ../liftover/rhemac10/celltype/${type}_with_rhemac10_element_rhemac10.bedpe -b ../../macaque/${type}_from_union_loop_summit.bedpe | cut -f7 | grep -Fw -f - ../liftover/union_loop_summit_hg38_with_rhemac10_element.bedpe > rhemac10_overlap/${type}_human_loop_overlap_rhemac10_${type}_loop_hg38.bedpe
 
-bedtools intersect -u -a ../liftover/caljac4/celltype/${type}_with_caljac4_element_caljac4.bed -b ../../marmoset/${type}_from_union_boundary.bed | cut -f4 | grep -Fw -f - ../liftover/human_union_boundary_hg38_with_caljac4_element.bed > caljac4_overlap/${type}_human_boundary_overlap_caljac4_${type}_boundary_hg38.bed
+pairToPair -type both -a ../liftover/caljac4/celltype/${type}_with_caljac4_element_caljac4.bedpe -b ../../marmoset/${type}.loop_summit.bedpe | cut -f7 | grep -Fw -f - ../liftover/union_loop_summit_hg38_with_caljac4_element.bedpe > caljac4_overlap/${type}_human_loop_overlap_caljac4_${type}_loop_hg38.bedpe
 
-bedtools intersect -u -a ../liftover/mm10/celltype/${type}_with_mm10_element_mm10.bed -b ../../mouse/${type}_from_union_boundary.bed | cut -f4 | grep -Fw -f - ../liftover/human_union_boundary_hg38_with_mm10_element.bed > mm10_overlap/${type}_human_boundary_overlap_mm10_${type}_boundary_hg38.bed
+pairToPair -type both -a ../liftover/mm10/celltype/${type}_with_mm10_element_mm10.bedpe -b ../../mouse/${type}.loop_summit.bedpe | cut -f7 | grep -Fw -f - ../liftover/union_loop_summit_hg38_with_mm10_element.bedpe > mm10_overlap/${type}_human_loop_overlap_mm10_${type}_loop_hg38.bedpe
+
 
 done
